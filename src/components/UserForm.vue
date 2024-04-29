@@ -20,18 +20,26 @@
 
 <script setup>
 import axios from 'axios';
-import { reactive } from 'vue';
+import { reactive,ref } from 'vue';
+import {  useRouter } from 'vue-router'
+
+const router = useRouter()
+
 
 const form = reactive({
     name: '',
     email: ''
 });
 
+const userId = ref(null);
+
 async function handleSubmit() {
     // Handle form submission
     try {
         const res =  await axios.post(`${process.env.VUE_APP_BACKEND_URL}/users`, form)
-        console.log(res.data)    
+        // console.log(res.data.userId)
+        userId.value = res.data.userId;
+        router.push({ name: 'Quiz', params: { userId: userId.value } });  
     } catch (error) {
         console.error(error);
     }
