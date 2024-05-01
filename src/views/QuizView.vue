@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5 quiz-container">
     <h1 class="text-center">Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
-    <div v-if="questions.length > 0">
+    <div v-if="!loadingQuestions && questions.length > 0 ">
       <h2 class="my-4">{{ currentQuestion.id }} - {{ currentQuestion.text }}</h2>
       <form @submit.prevent="submitQuiz">
         <div class="mb-3" v-for="choice in currentQuestion.choices" :key="choice.choice_id">
@@ -52,6 +52,7 @@ const minutes = computed(() => Math.floor(totalSeconds.value / 60));
 const secondsFormatted = computed(() => `0${totalSeconds.value % 60}`.slice(-2));
 
 const questions = ref([]);
+const loadingQuestions = ref(true);
 const currentQuestionIndex = ref(0);
 const selectedAnswers = reactive({});
 
@@ -90,8 +91,10 @@ onMounted(async () => {
     router.push({ name: 'Home' });
   }
   try {
+    loadingQuestions.value = true;
     const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/questions`);
     questions.value = response.data.questions; // adjust according to your API response structure
+    loadingQuestions.value = false;
     startTimer();
   } catch (error) {
     console.error("Failed to fetch questions:", error);
