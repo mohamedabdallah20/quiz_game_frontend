@@ -43,27 +43,34 @@ const questions = ref([]);
 const currentQuestionIndex = ref(0);
 const selectedAnswers = reactive({});
 
-onMounted(() => {
-  timerInterval.value = setInterval(() => {
-    if (totalSeconds.value > 0) {
-      totalSeconds.value--;
-    } else {
-      clearInterval(timerInterval.value);
-      submitQuiz(); // Automatically submit when time runs out
-    }
-  }, 1000);
-});
+function startTimer() {
+  if (timerInterval.value === null) {
+    timerInterval.value = setInterval(() => {
+      if (totalSeconds.value > 0) {
+        totalSeconds.value--;
+      } else {
+        // clearInterval(timerInterval.value);
+        submitQuiz(); // Automatically submit when time runs out
+      }
+    }, 1000);
+  }
+}
+function stopTimer() {
+  if (timerInterval.value !== null) {
+    clearInterval(timerInterval.value);
+    timerInterval.value = null;
+  }
+}
 
 onUnmounted(() => {
-  if (timerInterval.value) {
-    clearInterval(timerInterval.value);
-  }
+  stopTimer();
 });
 
 onMounted(async () => {
   try {
     const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/questions`);
     questions.value = response.data.questions; // adjust according to your API response structure
+    startTimer();
   } catch (error) {
     console.error("Failed to fetch questions:", error);
   }
@@ -93,7 +100,7 @@ function updateAnswer(questionId, choiceId) {
 function submitQuiz() {
   // console.log({answer : JSON.parse(JSON.stringify(selectedAnswers)),userId});
   // console.log({answer : toRaw(selectedAnswers),userId});
-
+  stopTimer();
   const formattedAnswers = Object.keys(selectedAnswers).map(key => {
     return { questionId: key, answerId: selectedAnswers[key] };
   });
