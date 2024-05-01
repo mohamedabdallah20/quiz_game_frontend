@@ -1,22 +1,31 @@
 <template>
-  <div class="container mt-5">
-    <h1>Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
+  <div class="container mt-5 quiz-container">
+    <h1 class="text-center">Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
     <div v-if="questions.length > 0">
-      <h2>{{ currentQuestion.id }} - {{ currentQuestion.text }}</h2>
-      <div v-for="choice in currentQuestion.choices" :key="choice.choice_id">
-        <input type="radio"
-               :name="`question-${currentQuestion.id}`"
-               :id="`choice-${choice.choice_id}`"
-               :value="choice.choice_id"
-               v-model="selectedAnswers[currentQuestion.id]"
-               @change="updateAnswer(currentQuestion.id, choice.choice_id)">
-        <label :for="`choice-${choice.choice_id}`">{{ choice.choice_text }}</label>
-      </div>
-      <button @click="previousQuestion" :disabled="currentQuestionIndex <= 0">Previous</button>
-      <button @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">Next</button>
-      <button v-if="currentQuestionIndex === questions.length - 1" @click="submitQuiz">Submit Quiz</button>
+      <h2 class="my-4">{{ currentQuestion.id }} - {{ currentQuestion.text }}</h2>
+      <form @submit.prevent="submitQuiz">
+        <div class="mb-3" v-for="choice in currentQuestion.choices" :key="choice.choice_id">
+          <div class="form-check">
+            <input class="form-check-input"
+                   type="radio"
+                   :name="`question-${currentQuestion.id}`"
+                   :id="`choice-${choice.choice_id}`"
+                   :value="choice.choice_id"
+                   v-model="selectedAnswers[currentQuestion.id]"
+                   @change="updateAnswer(currentQuestion.id, choice.choice_id)">
+            <label class="form-check-label" :for="`choice-${choice.choice_id}`">
+              {{ choice.choice_text }}
+            </label>
+          </div>
+        </div>
+        <div class="button-group text-center">
+          <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">Previous</button>
+          <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">Next</button>
+          <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">Submit Quiz</button>
+        </div>
+      </form>
     </div>
-    <div v-else>
+    <div v-else class="text-center">
       <p>Loading questions...</p>
     </div>
   </div>
@@ -108,4 +117,43 @@ function submitQuiz() {
 
 }
 </script>
+<style scoped>
+.quiz-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: #343a40;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-check-label {
+  cursor: pointer;
+}
+
+.button-group button {
+  min-width: 100px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.my-4 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+</style>
   
