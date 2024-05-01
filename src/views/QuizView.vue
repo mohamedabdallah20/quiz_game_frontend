@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1>Quiz Time!</h1>
+    <h1>Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
     <div v-if="questions.length > 0">
       <h2>{{ currentQuestion.id }} - {{ currentQuestion.text }}</h2>
       <div v-for="choice in currentQuestion.choices" :key="choice.choice_id">
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive, onMounted, defineProps, toRaw } from 'vue';
+import { ref, computed, reactive, onMounted, defineProps, toRaw, onUnmounted } from 'vue';
 import axios from 'axios';
 
  const userId = defineProps({
@@ -33,9 +33,32 @@ import axios from 'axios';
   }
 });
 
+const totalSeconds = ref(120); // 2 minutes in seconds
+const timerInterval = ref(null);
+
+const minutes = computed(() => Math.floor(totalSeconds.value / 60));
+const secondsFormatted = computed(() => `0${totalSeconds.value % 60}`.slice(-2));
+
 const questions = ref([]);
 const currentQuestionIndex = ref(0);
 const selectedAnswers = reactive({});
+
+onMounted(() => {
+  timerInterval.value = setInterval(() => {
+    if (totalSeconds.value > 0) {
+      totalSeconds.value--;
+    } else {
+      clearInterval(timerInterval.value);
+      submitQuiz(); // Automatically submit when time runs out
+    }
+  }, 1000);
+});
+
+onUnmounted(() => {
+  if (timerInterval.value) {
+    clearInterval(timerInterval.value);
+  }
+});
 
 onMounted(async () => {
   try {
@@ -75,7 +98,7 @@ function submitQuiz() {
     return { questionId: key, answerId: selectedAnswers[key] };
   });
   console.log({userId:toRaw(userId),answer : formattedAnswers});
-  
+
 }
 </script>
   
