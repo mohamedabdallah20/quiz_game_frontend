@@ -5,7 +5,7 @@ import NotFound from '../views/NotFound.vue';
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
-    { path: '/quiz', name: 'Quiz', component: QuizView, props: true },
+    { path: '/quiz/:userId', name: 'Quiz', component: QuizView, props: true },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }  
 ];
 const router = createRouter({
