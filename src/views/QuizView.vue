@@ -122,14 +122,25 @@ function updateAnswer(questionId, choiceId) {
 
 }
 
-function submitQuiz() {
+async function submitQuiz() {
   // console.log({answer : JSON.parse(JSON.stringify(selectedAnswers)),userId});
   // console.log({answer : toRaw(selectedAnswers),userId});
   stopTimer();
   const formattedAnswers = Object.keys(selectedAnswers).map(key => {
-    return { questionId: key, answerId: selectedAnswers[key] };
+    return { question_id: key, choice_id: selectedAnswers[key] };
   });
-  console.log({userId:toRaw(userId),answer : formattedAnswers});
+  // console.log({userId:toRaw(userId),answer : formattedAnswers});
+
+  await axios.post(`${process.env.VUE_APP_BACKEND_URL}/answers`, {userId:toRaw(userId),answers : formattedAnswers})
+    .then(response => {
+      // console.log(response.data)
+      if(response.data.success === true) {
+        router.push({ name: 'Result', params: { userId: toRaw(userId).userId } });
+      }
+    })
+    .catch(error => {
+      console.error("Failed to submit quiz:", error);
+    });
 
 }
 </script>
