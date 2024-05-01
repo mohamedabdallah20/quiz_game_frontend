@@ -34,6 +34,9 @@
 <script setup>
 import { ref, computed, reactive, onMounted, defineProps, toRaw, onUnmounted } from 'vue';
 import axios from 'axios';
+import {  useRouter } from 'vue-router'
+
+const router = useRouter()
 
  const userId = defineProps({
   userId: {
@@ -76,6 +79,16 @@ onUnmounted(() => {
 });
 
 onMounted(async () => {
+
+  const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/userExists`, {
+    params: {
+      userId: toRaw(userId)  // Using toRaw here, assuming userId is a reactive or ref
+    }
+  });
+  // console.log(response);
+  if(response.data.success === false) {
+    router.push({ name: 'Home' });
+  }
   try {
     const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/questions`);
     questions.value = response.data.questions; // adjust according to your API response structure
