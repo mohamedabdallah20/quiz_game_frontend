@@ -7,7 +7,12 @@ import ResultView from '../views/ResultView.vue';
 const routes = [
     { path: '/', name: 'Home', component: Home },
     { path: '/quiz/:userId', name: 'Quiz', component: QuizView, props: true },
-    { path: '/result/:userId', name: 'Result', component: ResultView, props: true },
+    {
+        path: '/result/:userId',
+        name: 'Result',
+        component: ResultView,
+        props: true  // This allows the route to accept params as props
+    },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }  
 ];
 const router = createRouter({

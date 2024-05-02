@@ -83,7 +83,7 @@ onMounted(async () => {
 
   const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/userExists`, {
     params: {
-      userId: toRaw(userId)  // Using toRaw here, assuming userId is a reactive or ref
+      userId: userId.userId  // Using toRaw here, assuming userId is a reactive or ref
     }
   });
   // console.log(response);
@@ -134,8 +134,16 @@ async function submitQuiz() {
   await axios.post(`${process.env.VUE_APP_BACKEND_URL}/answers`, {userId:toRaw(userId),answers : formattedAnswers})
     .then(response => {
       // console.log(response.data)
-      if(response.data.success === true) {
-        router.push({ name: 'Result', params: { userId: toRaw(userId).userId } });
+      if (response.data.success) {
+        router.push({
+          name: 'Result',
+          params: {
+            userId: toRaw(userId).userId
+          },
+          query: {
+            score: response.data.score,
+          }
+        });
       }
     })
     .catch(error => {
