@@ -72,6 +72,7 @@
   text-align: center;
   margin-top: 60px;
   min-height: 450px;
+  margin-top: 0;
   /* max-height: 600px; */
   /* width: 1024; */
 }

@@ -31,6 +31,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   min-height: 450px;
+  margin-top: 0;
   /* width: 1024; */
 }
 .logo img{
