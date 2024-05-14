@@ -45,7 +45,7 @@ const router = useRouter()
   }
 });
 
-const totalSeconds = ref(120); // 2 minutes in seconds
+const totalSeconds = ref(30); // 2 minutes in seconds
 const timerInterval = ref(null);
 
 const minutes = computed(() => Math.floor(totalSeconds.value / 60));
