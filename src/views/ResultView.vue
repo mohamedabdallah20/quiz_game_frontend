@@ -1,7 +1,11 @@
 <template>
+  <div class="logo">
+    <img alt="Hisense Image" src="../assets/Feature-image.png">
+  </div>
+  <div class="body">
     <div class="container mt-5">
       <div class="text-center">
-        <h1 class="mb-4">Result</h1>
+        <h1 class="mb-4 thank-you">Thank You for playing!</h1>
         <div class="card">
           <div class="card-body">
             <p class="card-text fs-4">Your Name: <span class="fw-bold">{{ username }}</span></p>
@@ -16,12 +20,16 @@
         </div>
       </div>
     </div>
+    <footerUI />
+  </div>
   </template>
   
   <script setup>
   import { ref, onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import axios from 'axios';
+  import footerUI from '../components/FooterUi.vue';
+
   
   const router = useRouter();
   const route = useRoute();
@@ -60,5 +68,41 @@
   .container {
     max-width: 600px;
   }
+  .logo{
+  text-align: center;
+  margin-top: 60px;
+  min-height: 450px;
+  /* max-height: 600px; */
+  /* width: 1024; */
+}
+.logo img{
+  max-height: 100%;
+  max-width: 100%;
+  /* width: 100%; */
+}
+.thank-you {
+  font-weight: 1000;
+  color: #00a9a5;
+}
+.body{
+  min-height: 50vh;
+  display: grid;
+  grid-template-rows: 1fr auto ;
+  /* grid-template-rows: 1fr auto ; */
+}
+.card{
+  --bs-card-border-width: 0;
+}
+button {
+    border-radius: 0.8rem  !important;
+    width: 10vw;
+    color: #fff !important;
+    font-weight:100;
+    letter-spacing: 1px;
+}
+.btn-primary{
+  background-color: #00a9a5 !important;
+  border-color: #00a9a5 !important;
+}
   </style>
   
