@@ -30,16 +30,17 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  height: 800px;
-  width: 1024;
+  min-height: 450px;
+  /* width: 1024; */
 }
 .logo img{
-  height: 100%;
-  /* width: 100%; */
+  max-height: 100%;
+  max-width: 100%;
 }
 .body{
   min-height: 50vh;
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  /* grid-template-rows: auto auto 1fr auto; */
+  grid-template-rows: 1fr auto auto;
 }
 </style>

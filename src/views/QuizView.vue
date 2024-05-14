@@ -1,33 +1,41 @@
 <template>
-  <div class="container mt-5 quiz-container">
-    <h1 class="text-center">Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
-    <div v-if="!loadingQuestions && questions.length > 0 ">
-      <h2 class="my-4">{{ currentQuestion.id }} - {{ currentQuestion.text }}</h2>
-      <form @submit.prevent="submitQuiz">
-        <div class="mb-3" v-for="choice in currentQuestion.choices" :key="choice.choice_id">
-          <div class="form-check">
-            <input class="form-check-input"
-                   type="radio"
-                   :name="`question-${currentQuestion.id}`"
-                   :id="`choice-${choice.choice_id}`"
-                   :value="choice.choice_id"
-                   v-model="selectedAnswers[currentQuestion.id]"
-                   @change="updateAnswer(currentQuestion.id, choice.choice_id)">
-            <label class="form-check-label" :for="`choice-${choice.choice_id}`">
-              {{ choice.choice_text }}
-            </label>
+  <div class="logo">
+    <img alt="Hisense Image" src="../assets/Feature-image.png">
+  </div>
+  <div class="body">
+    <div class="container mt-5 quiz-container">
+      <h1 class="text-center">Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
+      <div v-if="!loadingQuestions && questions.length > 0 ">
+        <h2 class="my-4 question text-align">{{ currentQuestion.text }}</h2>
+        <form @submit.prevent="submitQuiz">
+          <div class="form-check mb-5 col-lg-6 col-sm-12 answer text-center english-radio-buttons flex-wrap">
+          <div class="mb-3" v-for="choice in currentQuestion.choices" :key="choice.choice_id">
+              <div class="d-flex">
+                <input class="form-check-input"
+                       type="radio"
+                       :name="`question-${currentQuestion.id}`"
+                       :id="`choice-${choice.choice_id}`"
+                       :value="choice.choice_id"
+                       v-model="selectedAnswers[currentQuestion.id]"
+                       @change="updateAnswer(currentQuestion.id, choice.choice_id)">
+                <label class="form-check-label" :for="`choice-${choice.choice_id}`">
+                  {{ choice.choice_text }}
+                </label>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="button-group text-center">
-          <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">Previous</button>
-          <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">Next</button>
-          <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">Submit Quiz</button>
-        </div>
-      </form>
+          <div class="button-group">
+            <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">Previous</button>
+            <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">Next</button>
+            <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">Submit Quiz</button>
+          </div>
+        </form>
+      </div>
+      <div v-else class="text-center">
+        <p>Loading questions...</p>
+      </div>
     </div>
-    <div v-else class="text-center">
-      <p>Loading questions...</p>
-    </div>
+    <footerUI />
   </div>
 </template>
 
@@ -35,6 +43,8 @@
 import { ref, computed, reactive, onMounted, defineProps, toRaw, onUnmounted } from 'vue';
 import axios from 'axios';
 import {  useRouter } from 'vue-router'
+import footerUI from '../components/FooterUi.vue';
+
 
 const router = useRouter()
 
@@ -153,13 +163,88 @@ async function submitQuiz() {
 }
 </script>
 <style scoped>
+.logo{
+  text-align: center;
+  margin-top: 60px;
+  min-height: 450px;
+  /* max-height: 600px; */
+  /* width: 1024; */
+}
+.logo img{
+  max-height: 100%;
+  max-width: 100%;
+  /* width: 100%; */
+}
+.body{
+  min-height: 50vh;
+  display: grid;
+  grid-template-rows: 1fr auto ;
+  /* grid-template-rows: 1fr auto ; */
+}
+.form-check-label{
+    font-size: 1.1em;
+    color: black;
+}
+.form-check-input{
+    border-color: #00a9a5;
+}
+.answer input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+.answer label {
+  font-weight: 600;
+  color: #3c3a3a;
+}
+
+.answer input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 2px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #00a9a5;
+  margin-right: 5px;
+  /* Adjust as needed */
+  /* background-clip: content-box;
+  padding: 2px; */
+}
+.answer input[type="radio"]:checked {
+    background-color: #00a9a5; /* Example color */
+}
+.question{ 
+  font-weight: 1000;
+  color: #00a9a5;
+}
+.container{
+  margin-left: 8vw;
+}
+@media screen and (max-width: 810px) {
+  .container{
+    margin-left: 0;
+  }
+}
+button{
+    background-color: #00a9a5 !important;
+    border-radius: 0.8rem  !important;
+    width: 10vw;
+    color: #fff !important;
+    font-weight:100;
+    letter-spacing: 1px;
+    border-color: #00a9a5 !important;
+}
 .quiz-container {
   max-width: 800px;
-  margin: 2rem auto;
+  /* margin: 2rem auto; */
   padding: 20px;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
 }
 
 h1, h2 {

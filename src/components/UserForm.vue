@@ -129,7 +129,7 @@ label{
 button{
     background-color: #00a9a5 !important;
     border-radius: 0.8rem  !important;
-    width: 10vw;
+    /* width: 10vw; */
     color: #fff !important;
     font-weight:100;
     letter-spacing: 1px;
@@ -160,5 +160,8 @@ li:before{
     flex: 0 0 .6em;
     line-height: .7em;
     padding-right: .4em;
+}
+.row{
+  margin-left:0 ;
 }
 </style>
