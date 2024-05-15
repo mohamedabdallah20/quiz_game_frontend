@@ -44,6 +44,8 @@ import { ref, computed, reactive, onMounted, defineProps, toRaw, onUnmounted } f
 import axios from 'axios';
 import {  useRouter } from 'vue-router'
 import footerUI from '../components/FooterUi.vue';
+import { io } from "socket.io-client";
+
 
 
 const router = useRouter()
@@ -55,7 +57,7 @@ const router = useRouter()
   }
 });
 
-const totalSeconds = ref(120); // 2 minutes in seconds
+const totalSeconds = ref(5); // 2 minutes in seconds
 const timerInterval = ref(null);
 
 const minutes = computed(() => Math.floor(totalSeconds.value / 60));
@@ -154,6 +156,8 @@ async function submitQuiz() {
             score: response.data.score,
           }
         });
+        const socket = io(process.env.VUE_APP_SOCKET_URL);
+        socket.emit('score request')
       }
     })
     .catch(error => {

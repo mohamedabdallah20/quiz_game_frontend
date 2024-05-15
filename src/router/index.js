@@ -3,9 +3,11 @@ import Home from '../views/Home.vue';
 import QuizView from '../views/QuizView.vue';
 import NotFound from '../views/NotFound.vue';
 import ResultView from '../views/ResultView.vue';
+import DashBoard from "../views/DashBoard.vue";
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
+    { path: '/dashboard', name: 'Dashboard', component: DashBoard },
     { path: '/quiz/:userId', name: 'Quiz', component: QuizView, props: true },
     {
         path: '/result/:userId',
