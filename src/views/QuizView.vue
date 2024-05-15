@@ -156,7 +156,7 @@ async function submitQuiz() {
             score: response.data.score,
           }
         });
-        const socket = io(process.env.VUE_APP_SOCKET_URL);
+        const socket = io(process.env.VUE_APP_SOCKET_URL,{transports: ['websocket'],upgrade: false});
         socket.emit('score request')
       }
     })

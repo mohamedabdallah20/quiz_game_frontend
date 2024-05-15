@@ -13,7 +13,7 @@ import { io } from "socket.io-client";
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const users = ref([]);
-const socket = io(process.env.VUE_APP_SOCKET_URL);
+const socket = io(process.env.VUE_APP_SOCKET_URL,{transports: ['websocket'],upgrade: false});
 
 onMounted(() => {
     connectToSocket();
