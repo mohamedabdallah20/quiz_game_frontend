@@ -29,20 +29,27 @@ export default {
 .logo{
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  min-height: 450px;
+  min-height: 100px;
   margin-top: 0;
   /* width: 1024; */
 }
 .logo img{
-  max-height: 100%;
+  height: auto;
   max-width: 100%;
 }
 .body {
   display: grid;
-  /* max-height: 100vh; */
-  min-height: 100vh; 
-  grid-template-rows: auto 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
-  grid-template-columns: 100%; /* Ensure it spans the full width */
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto; /* auto for logo and footer, 1fr for form */
+  grid-template-columns: 100%;
+}
+footerUI {
+  width: 100%;
+  /* If the footer needs to always stick to the bottom: */
+  margin-top: auto !important; /* Pushes the footer to the bottom of the grid */
+}
+userForm {
+  min-height: 0 !important; /* Or another appropriate value based on content */
+  max-height: 100% !important; /* Limit height to prevent overflow */
 }
 </style>
