@@ -86,14 +86,14 @@ onUnmounted(()=> {
   display: flex;
   justify-content: center;
   /* margin-top:auto ; */
-  /* align-items: center; Center the table vertically */
+  align-items: center; /*Center the table vertically*/
   min-height: 80vh; /* Minimum height of 100% of the viewport height */
   background: url('../assets/Feature-image.png') no-repeat center center;
   background-size: cover; /* Cover the entire area of the element */
 }
-table{
+/* table{
   margin-top: 200px;
-}
+} */
 .arrow.up {
   color: green;
 }
