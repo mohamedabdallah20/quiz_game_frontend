@@ -182,7 +182,7 @@ async function submitQuiz() {
 }
 .body{
   display: grid;
-  min-height: 100%; /* Ensure the .body covers at least the full height of the viewport */
+  min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
   grid-template-rows: auto 1fr auto ;
   grid-template-columns: 100%; /* Ensure it spans the full width */
 }

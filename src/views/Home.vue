@@ -41,7 +41,7 @@ export default {
 .body {
   display: grid;
   /* max-height: 100vh; */
-  min-height: 100%; 
+  min-height: 100vh; 
   grid-template-rows: auto 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
   grid-template-columns: 100%; /* Ensure it spans the full width */
 }
