@@ -1,33 +1,39 @@
 <template>
+  <div class="body">
     <div class="leaderboard">
-      <h2>Real-Time Leaderboard</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Score</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="user in users" :key="user.user_id">
-            <td>{{ user.rank+1 }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.max_score }}</td>
-            <td>
-              <span v-if="user.change < 0" class="arrow up">↑</span>
-              <span v-else-if="user.change > 0" class="arrow down">↓</span>
-              <span v-else class="arrow stop">-</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <!-- <thead class="table-dark">
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Name</th>
+              <th scope="col">Score</th>
+              <th scope="col"></th>
+            </tr>
+          </thead> -->
+          <transition-group name="list" tag="tbody" class="table-group-divider">
+            <tr v-for="user in users" :key="user.user_id">
+              <td class="diff-color" scope="row">{{ user.rank+1 }}</td>
+              <td>{{ user.username }}</td>
+              <td class="diff-color" >{{ user.max_score }}</td>
+              <td>
+                <span v-if="user.change < 0" class="arrow up">↑</span>
+                <span v-else-if="user.change > 0" class="arrow down">↓</span>
+                <span v-else class="arrow stop">-</span>
+              </td>
+            </tr>
+          </transition-group>
+        </table>
+      </div>
     </div>
+    <FooterUi />
+  </div>
 </template>
+
 <script setup>
 import { io } from "socket.io-client";
 import { ref, onMounted, onUnmounted } from 'vue';
+import FooterUi from "@/components/FooterUi.vue";
 
 const users = ref([]);
 const socket = io(process.env.VUE_APP_SOCKET_URL,{transports: ['websocket'],upgrade: false});
@@ -68,15 +74,25 @@ onUnmounted(()=> {
     }
 })
 </script>
-<style>
-table {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
+
+<style scoped>
+.body {
+  display: grid;
+  grid-template-rows: 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
+  min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
+  grid-template-columns: 100%; /* Ensure it spans the full width */
 }
-th, td {
-  padding: 8px;
-  border-bottom: 1px solid #ccc;
+.leaderboard {
+  display: flex;
+  justify-content: center;
+  /* margin-top:auto ; */
+  /* align-items: center; Center the table vertically */
+  min-height: 80vh; /* Minimum height of 100% of the viewport height */
+  background: url('../assets/Feature-image.png') no-repeat center center;
+  background-size: cover; /* Cover the entire area of the element */
+}
+table{
+  margin-top: 200px;
 }
 .arrow.up {
   color: green;
@@ -87,6 +103,27 @@ th, td {
 .arrow.stop {
   color: grey;
 }
+.table-responsive{
+  max-width:60%;
+  min-width: 40%;
+  min-height: 50vh;
+  max-height: 60vh;
+}
+.diff-color{
+  background-color: #00a9a5;
+}
+td{
+  opacity: 0.8;
+}
+/* Transition styles for moving items */
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from, .list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-move {
+  transition: transform 0.5s ease;
+}
 </style>
-
-  
