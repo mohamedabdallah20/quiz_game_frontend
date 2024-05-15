@@ -1,8 +1,8 @@
 <template>
-  <div class="logo">
-    <img alt="Hisense Image" src="../assets/Feature-image.png">
-  </div>
   <div class="body">
+    <div class="logo">
+      <img alt="Hisense Image" src="../assets/Feature-image.png">
+    </div>
     <div class="container mt-5 quiz-container">
       <h1 class="text-center">Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
       <div v-if="!loadingQuestions && questions.length > 0 ">
@@ -181,9 +181,9 @@ async function submitQuiz() {
   /* width: 100%; */
 }
 .body{
-  min-height: 65vh; /* Ensure the .body covers at least the full height of the viewport */
   display: grid;
-  grid-template-rows: 1fr auto ;
+  min-height: 100%; /* Ensure the .body covers at least the full height of the viewport */
+  grid-template-rows: auto 1fr auto ;
   grid-template-columns: 100%; /* Ensure it spans the full width */
 }
 .form-check-label{

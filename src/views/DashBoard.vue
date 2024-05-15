@@ -1,5 +1,6 @@
 <template>
   <div class="body">
+    <!-- <div></div> -->
     <div class="leaderboard">
       <div class="table-responsive">
         <table class="table table-striped">
@@ -78,8 +79,8 @@ onUnmounted(()=> {
 <style scoped>
 .body {
   display: grid;
+  min-height: 100%; /* Ensure the .body covers at least the full height of the viewport */
   grid-template-rows: 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
-  min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
   grid-template-columns: 100%; /* Ensure it spans the full width */
 }
 .leaderboard {
@@ -87,7 +88,7 @@ onUnmounted(()=> {
   justify-content: center;
   /* margin-top:auto ; */
   align-items: center; /*Center the table vertically*/
-  min-height: 80vh; /* Minimum height of 100% of the viewport height */
+  min-height: 100vh; /* Minimum height of 100% of the viewport height */
   background: url('../assets/Feature-image.png') no-repeat center center;
   background-size: cover; /* Cover the entire area of the element */
 }

@@ -1,8 +1,8 @@
 <template>
-  <div class="logo">
-    <img alt="Hisense Image" src="../assets/Feature-image.png">
-  </div>
   <div class="body">
+    <div class="logo">
+      <img alt="Hisense Image" src="../assets/Feature-image.png">
+    </div>
     <userForm />
     <footerUI />
   </div>
@@ -40,8 +40,9 @@ export default {
 }
 .body {
   display: grid;
-  grid-template-rows: 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
-  min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
+  /* max-height: 100vh; */
+  min-height: 100%; 
+  grid-template-rows: auto 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
   grid-template-columns: 100%; /* Ensure it spans the full width */
 }
 </style>
