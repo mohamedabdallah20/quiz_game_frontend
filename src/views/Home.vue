@@ -38,10 +38,10 @@ export default {
   max-height: 100%;
   max-width: 100%;
 }
-.body{
-  min-height: 50vh;
+.body {
   display: grid;
-  /* grid-template-rows: auto auto 1fr auto; */
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: 1fr auto; /* 1fr for the leaderboard to take up remaining space, 'auto' for the footer */
+  min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
+  grid-template-columns: 100%; /* Ensure it spans the full width */
 }
 </style>

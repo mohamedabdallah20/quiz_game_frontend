@@ -181,10 +181,10 @@ async function submitQuiz() {
   /* width: 100%; */
 }
 .body{
-  min-height: 50vh;
+  min-height: 65vh; /* Ensure the .body covers at least the full height of the viewport */
   display: grid;
   grid-template-rows: 1fr auto ;
-  /* grid-template-rows: 1fr auto ; */
+  grid-template-columns: 100%; /* Ensure it spans the full width */
 }
 .form-check-label{
     font-size: 1.1em;
