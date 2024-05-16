@@ -1,16 +1,17 @@
 <template>
-  <div class="logo">
-    <img alt="Hisense Image" src="../assets/Feature-image.png">
-  </div>
   <div class="body">
+    <div class="logo">
+      <img alt="Hisense Image" src="../assets/Feature-image.png">
+    </div>
     <div class="container mt-5">
       <div class="text-center">
         <h1 class="mb-4 thank-you">Thank You for playing!</h1>
         <div class="card">
-          <div class="card-body">
-            <p class="card-text fs-4">Your Name: <span class="fw-bold">{{ username }}</span></p>
-            <p class="card-text fs-4">Your score: <span class="fw-bold">{{ score }}/100</span></p>
-            <p class="card-text fs-4">MAX SCORE: <span class="fw-bold">{{ max_score }}/100</span></p>
+          <div class="card-body text-center mt-0">
+            <p class="card-text fs-4"><span class="fw-bold name">{{ username }}</span></p>
+            <hr>
+            <p class="card-text fs-4">score: <span class="fw-bold name">{{ score }}</span>/100</p>
+            <p class="card-text fs-4">MAX SCORE: <span class="fw-bold name">{{ max_score }}</span>/100</p>
             <!-- Buttons for actions -->
             <div class="d-flex" style="justify-content: space-evenly;">
                 <button class="btn btn-primary mt-3" @click="retakeQuiz">Retake Quiz</button>
@@ -86,9 +87,9 @@
   color: #00a9a5;
 }
 .body{
-  min-height: 50vh;
+  min-height: 100vh;
   display: grid;
-  grid-template-rows: 1fr auto ;
+  grid-template-rows: auto 1fr auto ;
   /* grid-template-rows: 1fr auto ; */
 }
 .card{
@@ -96,7 +97,7 @@
 }
 button {
     border-radius: 0.8rem  !important;
-    width: 10vw;
+    /* width: 10vw; */
     color: #fff !important;
     font-weight:100;
     letter-spacing: 1px;
@@ -104,6 +105,9 @@ button {
 .btn-primary{
   background-color: #00a9a5 !important;
   border-color: #00a9a5 !important;
+}
+.name{
+  color: #00a9a5;
 }
   </style>
   

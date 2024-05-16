@@ -57,7 +57,7 @@ const connectToSocket = () => {
             return {
                 ...newUser,
                 rank: index,
-                change: existing ? index - existing.rank : 0
+                change: existing ? index - existing.rank : -1
             };
             });
             users.value = newUsers;
@@ -118,13 +118,13 @@ td{
 }
 /* Transition styles for moving items */
 .list-enter-active, .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 2s ease;
 }
 .list-enter-from, .list-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }
 .list-move {
-  transition: transform 0.5s ease;
+  transition: transform 2s ease;
 }
 </style>
