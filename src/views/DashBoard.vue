@@ -189,12 +189,16 @@ onUnmounted(()=> {
 .list-enter-active, .list-leave-active {
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-.list-enter-from, .list-leave-to {
+.list-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(-40px);
+}
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(40px);
 }
 .list-move {
-  transition: transform 0.5s ease; 
+  transition: all 0.5s ease; 
 }
 .list-move {
   will-change: transform, opacity;
