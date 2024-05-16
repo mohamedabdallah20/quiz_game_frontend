@@ -161,11 +161,11 @@ onUnmounted(()=> {
   color: grey;
 }
 .table-responsive{
-  max-width:30%;
-  min-width: 25%;
-  min-height: 50vh;
-  max-height: 60vh;
-  border-radius: 5px;
+  max-width:50vw;
+  min-width: 30vw;
+  min-height: 100%;
+  /* max-height: 60vh; */
+  border-radius: 10px;
   overflow-y: auto;
 }
 .table{
@@ -187,15 +187,20 @@ onUnmounted(()=> {
 }
 /* Transition styles for moving items */
 .list-enter-active, .list-leave-active {
-  transition: all 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 .list-enter-from, .list-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
 }
 .list-move {
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease; 
 }
+.list-move {
+  will-change: transform, opacity;
+}
+
+/* Pagination controls */
 .pagination-controls {
   display: flex;
   justify-content: center;
@@ -215,7 +220,34 @@ onUnmounted(()=> {
 .pagination-controls button:disabled {
   background-color: #ccc;
 }
+/* boarder top */
 .table-group-divider{
   border-top: none;
+}
+/* mobile media screens */
+@media screen and (max-width: 768px) {
+  .table-responsive{
+    margin-top: 20px;
+    max-width:90%;
+    min-width: 70%;
+  }
+  .table > :not(caption) > * > *{
+    /* text-align: center; */
+    font-weight: 900;
+    font-size: 1rem;
+  }
+  .list-enter-active, .list-leave-active {
+    transition: none;
+  }
+  .list-enter-from, .list-leave-to {
+    opacity: 0;
+    transform: none;
+  }
+  .list-move {
+    transition: none; 
+  }
+  .leaderboard-text{
+    display: none;
+  }
 }
 </style>
