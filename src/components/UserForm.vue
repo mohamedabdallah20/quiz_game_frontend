@@ -86,7 +86,21 @@ async function handleSubmit() {
         userId.value = res.data.userId;
         router.push({ name: 'Quiz', params: { userId: userId.value } });  
     } catch (error) {
-        console.error(error);
+        // console.log(error.response.data);
+        // console.log(error.response.data.code);
+        if (error.response.data.code === 1) {
+            try {
+                const res = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/users/${form.email}`)
+                if (res.data.success === true) {
+                    alert("User already exists! Go to the Quiz");
+                    router.push({ name: 'Quiz', params: { userId: res.data.userId } });
+                }
+            } catch (error) {
+                alert("Something went wrong");
+            }
+        }else{
+            alert("Something went wrong");
+        }
     }
 }
 </script>
