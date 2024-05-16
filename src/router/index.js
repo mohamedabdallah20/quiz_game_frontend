@@ -7,7 +7,7 @@ import DashBoard from "../views/DashBoard.vue";
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
-    { path: '/dashboard', name: 'Dashboard', component: DashBoard },
+    { path: '/leaderboard', name: 'Dashboard', component: DashBoard },
     { path: '/quiz/:userId', name: 'Quiz', component: QuizView, props: true },
     {
         path: '/result/:userId',
