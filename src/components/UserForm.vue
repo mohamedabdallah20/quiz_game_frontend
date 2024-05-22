@@ -42,12 +42,12 @@
                         email address, and Location.</li>
                     <li>The participant with the highest number of correct answers within the given time will have the
                         option to be selected for the challenge.</li>
-                    <li>If there is a tie between participants,, a random draw will be conducted to determine the
-                        winner.</li>
+                    <!-- <li>If there is a tie between participants,, a random draw will be conducted to determine the
+                        winner.</li> -->
                     <li>The winner will be notified via the contact information provided during registration, if the
                         winner didn’t reply back confirming in two
                         consecutive days, they will be directly eliminated.</li>
-                    <li>The prize is non-transferable and cannot be exchanged for cash or any other alternatives.</li>
+                    <!-- <li>The prize is non-transferable and cannot be exchanged for cash or any other alternatives.</li> -->
                     <li>Participants can participate from anywhere as long as they can attend the event on the 8th of
                         June in Riyadh on his/her own expense.</li>
                     <div class="form-check mt-3">
