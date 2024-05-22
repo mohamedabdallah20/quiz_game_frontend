@@ -5,11 +5,10 @@
     </div>
     <div class="container mt-5">
       <div class="text-center">
-        <h1 class="mb-4 thank-you">Thank You for playing!</h1>
+        <h1 class="mb-4 thank-you">Thank You for playing {{ username }}!</h1>
+        <hr>
         <div class="card">
           <div class="card-body text-center mt-0">
-            <p class="card-text fs-4"><span class="fw-bold name">{{ username }}</span></p>
-            <hr>
             <p class="card-text fs-4">score: <span class="fw-bold name">{{ score }}</span>/100</p>
             <p class="card-text fs-4">MAX SCORE: <span class="fw-bold name">{{ max_score }}</span>/100</p>
             <!-- Buttons for actions -->

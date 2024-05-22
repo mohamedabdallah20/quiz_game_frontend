@@ -4,7 +4,13 @@
       <img alt="Hisense Image" src="../assets/Feature-image.png">
     </div>
     <div class="container mt-5 quiz-container">
-      <h1 class="text-center">Quiz Time! ({{ minutes }}:{{ secondsFormatted }} left)</h1>
+      <h1 class="text-center"> <span style="color: #00a9a5 ;">
+        <!-- متبقى -->
+        </span>
+         <span style="color: rgb(232, 81, 11); opacity: 0.8;">
+          &gt;&gt;&gt; {{ minutes }}:{{ secondsFormatted }} &lt;&lt;&lt;
+        </span>
+      </h1>
       <div v-if="!loadingQuestions && questions.length > 0 ">
         <h2 class="my-4 question text-align">{{ currentQuestion.text }}</h2>
         <form @submit.prevent="submitQuiz">
@@ -25,9 +31,9 @@
             </div>
           </div>
           <div class="button-group">
-            <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">Previous</button>
-            <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">Next</button>
-            <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">Submit Quiz</button>
+            <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">السابق</button>
+            <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">التالى</button>
+            <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">ارسال</button>
           </div>
         </form>
       </div>
@@ -181,6 +187,7 @@ async function submitQuiz() {
   /* width: 100%; */
 }
 .body{
+  direction: rtl;
   display: grid;
   min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
   grid-template-rows: auto 1fr auto ;
@@ -188,7 +195,7 @@ async function submitQuiz() {
 }
 .form-check-label{
     font-size: 1.1em;
-    color: black;
+    color: rgb(233, 180, 155);
 }
 .form-check-input{
     border-color: #00a9a5;
@@ -199,6 +206,8 @@ async function submitQuiz() {
   appearance: none;
   width: 10px;
   height: 10px;
+  margin-left: 5px;
+  margin-right: 0;
 }
 
 .answer label {
@@ -227,11 +236,11 @@ async function submitQuiz() {
   color: #00a9a5;
 }
 .container{
-  margin-left: 8vw;
+  margin-right: 8vw;
 }
 @media screen and (max-width: 810px) {
   .container{
-    margin-left: 0;
+    margin-right: 0;
   }
 }
 button{
