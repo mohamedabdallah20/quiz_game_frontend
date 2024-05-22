@@ -4,11 +4,9 @@
       <img alt="Hisense Image" src="../assets/Feature-image.png">
     </div>
     <div class="container mt-5 quiz-container">
-      <h1 class="text-center"> <span style="color: #00a9a5 ;">
-        <!-- متبقى -->
-        </span>
-         <span style="color: rgb(232, 81, 11); opacity: 0.8;">
-          &gt;&gt;&gt; {{ minutes }}:{{ secondsFormatted }} &lt;&lt;&lt;
+      <h1 class="text-center">
+         <span style="color: #00a9a5;">
+          {{ minutes }}:{{ secondsFormatted }}
         </span>
       </h1>
       <div v-if="!loadingQuestions && questions.length > 0 ">
