@@ -5,7 +5,7 @@
     </div>
     <div class="container mt-5 quiz-container">
       <h1 class="text-center">
-         <span style="color: #00a9a5;">
+         <span style="color: #00a9a5; ">
           {{ minutes }}:{{ secondsFormatted }}
         </span>
       </h1>
