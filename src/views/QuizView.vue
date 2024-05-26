@@ -57,7 +57,7 @@ const router = useRouter()
  const userId = defineProps({
   userId: {
     type: [String, Number],
-    required: true
+    required: true,
   }
 });
 
