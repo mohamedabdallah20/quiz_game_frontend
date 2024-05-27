@@ -12,16 +12,30 @@
             <p class="card-text fs-4">score: <span class="fw-bold name">{{ score }}</span>/100</p>
             <p class="card-text fs-4">MAX SCORE: <span class="fw-bold name">{{ max_score }}</span>/100</p>
             <!-- Buttons for actions -->
-            <div class="d-flex" style="justify-content: space-evenly;">
-              <button class="btn btn-primary mt-3" @click="retakeQuiz">{{t('Retake Quiz')}}</button>
-              <button class="btn btn-secondary mt-3" @click="goHome">{{t('Go Home')}}</button>
+            <div class="container">
+              <div class="row justify-content-center mt-3">
+                <div class="col-md-6">
+                  <button class="btn btn-primary mt-3" @click="retakeQuiz">{{t('Retake Quiz')}}</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-secondary mt-3" @click="toHisense">{{t('To Hisense')}}</button>
+                </div>
+              </div>
+              <div class="row justify-content-center mt-3">
+                <div class="col-md-6">
+                  <button class="btn btn-primary mt-3" @click="toLeaderboard">{{t('To Leaderboard')}}</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-secondary mt-3" @click="goHome">{{t('Go Home')}}</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <hr>
         <div>
           <p class="congratulationsp text-center ">
-            {{t("You have successfully entered the draw for the Big Win with Hisense!")}}
+            {{t("You have successfully entered the draw to get the chance to win with Hisense!")}}
           </p>
           <p class="congratulationsp text-center ">
             {{t("Follow us to know the winners and to get all the updates")}}
@@ -83,6 +97,15 @@ onMounted(async () => {
 function retakeQuiz() {
   // Navigate to the quiz page for the same user
   router.push({ name: 'Quiz', params: { userId: userId.value } });
+}
+function toLeaderboard() {
+  // Navigate to the quiz page for the same user
+  router.push({ name: 'Dashboard' });
+}
+
+function toHisense() {
+  // Navigate to the quiz page for the same user
+  window.location.href = 'https://www.hisenseksa.com/';
 }
 
 function goHome() {
