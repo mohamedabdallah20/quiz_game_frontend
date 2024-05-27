@@ -191,8 +191,9 @@ c0,2.2-0.5,4.3-1.8,6.1c-2,3-4.9,4.7-8.5,4.9c-0.1,0-0.2,0-0.4,0.1L22.9,45.2L22.9,
 
 .logo {
   text-align: center;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   min-height: 450px;
+  max-height: 800px;
   margin-top: 0;
   /* max-height: 600px; */
   /* width: 1024; */

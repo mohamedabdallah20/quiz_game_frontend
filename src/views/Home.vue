@@ -30,11 +30,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   min-height: 100px;
+  max-height: 800px;
   margin-top: 0;
   /* width: 1024; */
 }
 .logo img{
-  height: auto;
+  height: 100%;
   max-width: 100%;
 }
 .body {

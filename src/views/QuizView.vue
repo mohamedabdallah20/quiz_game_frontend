@@ -189,10 +189,11 @@ async function submitQuiz() {
 <style scoped>
 .logo{
   text-align: center;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   min-height: 450px;
+  max-height: 800px;
   /* max-height: 600px; */
-  /* width: 1024; */
+  /* width: 1024px; */
 }
 .logo img{
   max-height: 100%;
@@ -200,17 +201,23 @@ async function submitQuiz() {
   margin-top: 0;
   /* width: 100%; */
 }
-.langChangeDiv{
-  margin: 10px;
+.langChangeDiv {
+  display: inline-block;
+  margin-top:10px ;
+  margin-bottom:5px ;
+  margin-inline-start: 10%;
 }
-.langChangeDiv button{
+
+.langChangeDiv button {
+  display: inline-block;
   background-color: #00a9a5 !important;
   border-radius: 0.8rem  !important;
-  width: 5vw;
   color: #fff !important;
   font-weight:100;
   letter-spacing: 1px;
   border-color: #00a9a5 !important;
+  width: auto; 
+  white-space: nowrap; 
 }
 .body{
   display: grid;
