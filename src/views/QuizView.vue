@@ -1,21 +1,25 @@
 <template>
-  <div class="body">
+  <div class="body" :dir="ISRTL ? 'rtl' : 'ltr'">
+    <div class="langChangeDiv">
+      <button @click="changeLang"> EN|AR </button>
+    </div>
     <div class="logo">
       <img alt="Hisense Image" src="../assets/Feature-image.png">
     </div>
-    <div class="container mt-5 quiz-container">
+    <div class="container mt-5 quiz-container" :class="[{ 'rtl-margin': ISRTL, 'ltr-margin': !ISRTL }]">
       <h1 class="text-center">
          <span style="color: #00a9a5; ">
           {{ minutes }}:{{ secondsFormatted }}
         </span>
       </h1>
       <div v-if="!loadingQuestions && questions.length > 0 ">
-        <h2 class="my-4 question text-align">{{ currentQuestion.text }}</h2>
+        <h2 class="my-4 question text-align">{{ t(currentQuestion.text) }}</h2>
         <form @submit.prevent="submitQuiz">
           <div class="form-check mb-5 col-lg-6 col-sm-12 answer text-center english-radio-buttons flex-wrap">
           <div class="mb-3" v-for="choice in currentQuestion.choices" :key="choice.choice_id">
               <div class="d-flex">
                 <input class="form-check-input"
+                      :style="dynamicStylesRadioButton"
                        type="radio"
                        :name="`question-${currentQuestion.id}`"
                        :id="`choice-${choice.choice_id}`"
@@ -23,15 +27,15 @@
                        v-model="selectedAnswers[currentQuestion.id]"
                        @change="updateAnswer(currentQuestion.id, choice.choice_id)">
                 <label class="form-check-label" :for="`choice-${choice.choice_id}`">
-                  {{ choice.choice_text }}
+                  {{ t(choice.choice_text) }}
                 </label>
               </div>
             </div>
           </div>
           <div class="button-group">
-            <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">السابق</button>
-            <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">التالى</button>
-            <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">ارسال</button>
+            <button  type="button" class="btn btn-secondary me-2" @click="previousQuestion" :disabled="currentQuestionIndex <= 0">{{t('previous')}}</button>
+            <button type="button" class="btn btn-primary me-2" @click="nextQuestion" :disabled="currentQuestionIndex >= questions.length - 1">{{t('next')}}</button>
+            <button class="btn btn-success" type="submit" v-if="currentQuestionIndex === questions.length - 1">{{t('submit')}}</button>
           </div>
         </form>
       </div>
@@ -72,6 +76,9 @@ const loadingQuestions = ref(true);
 const currentQuestionIndex = ref(0);
 const selectedAnswers = reactive({});
 
+import { useI18n } from 'vue-i18n';
+const { t, locale } = useI18n();
+
 function startTimer() {
   if (timerInterval.value === null) {
     timerInterval.value = setInterval(() => {
@@ -90,7 +97,16 @@ function stopTimer() {
     timerInterval.value = null;
   }
 }
-
+const changeLang = () => {
+  locale.value = locale.value === 'en' ? 'ar' : 'en';
+  localStorage.setItem('locale', locale.value);
+};
+const ISRTL = computed(() => locale.value === 'ar');
+const dynamicStylesRadioButton = computed(() => {
+  return ISRTL.value
+    ? { marginLeft: '5px', marginRight: '0' }
+    : { marginLeft: '0', marginRight: '5px' };
+});
 onUnmounted(() => {
   stopTimer();
 });
@@ -184,11 +200,22 @@ async function submitQuiz() {
   margin-top: 0;
   /* width: 100%; */
 }
+.langChangeDiv{
+  margin: 10px;
+}
+.langChangeDiv button{
+  background-color: #00a9a5 !important;
+  border-radius: 0.8rem  !important;
+  width: 5vw;
+  color: #fff !important;
+  font-weight:100;
+  letter-spacing: 1px;
+  border-color: #00a9a5 !important;
+}
 .body{
-  direction: rtl;
   display: grid;
   min-height: 100vh; /* Ensure the .body covers at least the full height of the viewport */
-  grid-template-rows: auto 1fr auto ;
+  grid-template-rows: auto auto 1fr auto ;
   grid-template-columns: 100%; /* Ensure it spans the full width */
 }
 .form-check-label{
@@ -204,8 +231,6 @@ async function submitQuiz() {
   appearance: none;
   width: 10px;
   height: 10px;
-  margin-left: 5px;
-  margin-right: 0;
 }
 
 .answer label {
@@ -221,7 +246,7 @@ async function submitQuiz() {
   width: 20px;
   height: 20px;
   border: 1px solid #00a9a5;
-  margin-right: 5px;
+  /* margin-right: 5px; */
   /* Adjust as needed */
   /* background-clip: content-box;
   padding: 2px; */
@@ -233,11 +258,18 @@ async function submitQuiz() {
   font-weight: 1000;
   color: #00a9a5;
 }
-.container{
+.rtl-margin {
   margin-right: 8vw;
+  margin-left: 0;
+}
+.ltr-margin {
+  margin-left: 8vw;
+  margin-right: 0;
 }
 @media screen and (max-width: 810px) {
-  .container{
+  .rtl-margin,
+  .ltr-margin {
+    margin-left: 0;
     margin-right: 0;
   }
 }
