@@ -29,7 +29,7 @@ export default {
 .logo{
   text-align: center;
   color: #2c3e50;
-  min-height: 100px;
+  min-height: 450px;
   max-height: 800px;
   margin-top: 0;
   /* width: 1024; */
