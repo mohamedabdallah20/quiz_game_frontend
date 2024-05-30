@@ -35,8 +35,9 @@ export default {
   /* width: 1024; */
 }
 .logo img{
-  height: 100%;
+  max-height: 100%;
   max-width: 100%;
+  margin-top: 0;
 }
 .body {
   display: grid;
