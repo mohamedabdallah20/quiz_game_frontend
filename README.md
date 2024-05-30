@@ -1,4 +1,4 @@
-# quiz_game_frontend
+# Hisense Euro Challenge
 
 ## Project setup
 ```

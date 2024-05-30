@@ -106,7 +106,7 @@ async function  shareScore () {
     text: `${t('Just scored')} ${score.value} ${t('out of 100 in the Hisense Euro Challenge!- Think you can beat that?')}`,
     url: "https://www.hisenseksa.com/eurochallenge/" // The URL of your quiz game
         };
-        console.log(data);
+        // console.log(data);
         if(!navigator.canShare) {
           alert('Sharing is not supported in your browser.');
         }
