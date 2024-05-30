@@ -14,6 +14,11 @@
             <!-- Buttons for actions -->
             <div class="container">
               <div class="row justify-content-center mt-3">
+                <div class="col-md-12">
+                  <button  class="btn btn-secondary mt-3" @click="shareScore">{{t('Share Score')}}</button>
+                </div>
+              </div>
+              <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                   <button class="btn btn-primary mt-3" @click="retakeQuiz">{{t('Retake Quiz')}}</button>
                 </div>
@@ -94,6 +99,25 @@ onMounted(async () => {
     console.error("Failed to fetch user details:", error);
   }
 });
+async function  shareScore () {
+  const data = {
+    title: 'Hisense Euro Challenge',
+    text: `I scored ${score.value} on the Hisense Euro Challenge! Can you beat my score?`,
+    url: "https://www.hisenseksa.com/eurochallenge/" // The URL of your quiz game
+        };
+        console.log(data);
+        if(!navigator.canShare) {
+          alert('Sharing is not supported in your browser.');
+        }
+        else{
+          try {
+            await navigator.share(data);
+            alert('Score shared successfully')
+          } catch (error) {
+            console.error('Failed to share score:');
+          }
+        }
+}
 function retakeQuiz() {
   // Navigate to the quiz page for the same user
   router.push({ name: 'Quiz', params: { userId: userId.value } });
