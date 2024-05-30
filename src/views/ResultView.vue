@@ -100,9 +100,10 @@ onMounted(async () => {
   }
 });
 async function  shareScore () {
+  
   const data = {
     title: 'Hisense Euro Challenge',
-    text: `I scored ${score.value} on the Hisense Euro Challenge! Can you beat my score?`,
+    text: `${t('Just scored')} ${score.value} ${t('out of 100 in the Hisense Euro Challenge!- Think you can beat that?')}`,
     url: "https://www.hisenseksa.com/eurochallenge/" // The URL of your quiz game
         };
         console.log(data);
