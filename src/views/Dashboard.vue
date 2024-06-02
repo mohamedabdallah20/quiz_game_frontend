@@ -4,13 +4,15 @@
             <div class="row mt-3">
                 <div class="col-12">
                     <label for="UserName" class="form-label">User Name:*</label>
-                    <input id="UserName" v-model="username" type="text" class="form-control" required placeholder="Enter your User Name">
+                    <input id="UserName" v-model="username" type="text" class="form-control" required
+                        placeholder="Enter your User Name">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-12">
                     <label for="Password" class="form-label">Password:*</label>
-                    <input id="Password" v-model="password" type="password" class="form-control" required placeholder="Enter your Password">
+                    <input id="Password" v-model="password" type="password" class="form-control" required
+                        placeholder="Enter your Password">
                 </div>
             </div>
             <div class="row mt-3">
@@ -18,12 +20,43 @@
                     <button type="submit" @click="login" class="btn btn-primary">Login</button>
                 </div>
             </div>
-            
+        </div>
+        <div v-else class="container">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th class="diff-color" scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th class="diff-color" scope="col">Mobile</th>
+                                <th scope="col">City</th>
+                                <th class="diff-color" scope="col">Max Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in paginatedUsers" :key="user.user_id">
+                                <th scope="row">{{ user.user_id }}</th>
+                                <td class="diff-color">{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td class="diff-color">{{ user.mobile }}</td>
+                                <td>{{ user.city }}</td>
+                                <td class="diff-color">{{ user.max_score }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination-controls">
+                        <button @click="previousPage" :disabled="currentPage === 1">&lt;</button>
+                        <button @click="nextPage" :disabled="currentPage * entriesPerPage >= users.length">&gt;</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <script setup>
-import {ref,onMounted} from 'vue';
+import {ref,onMounted,computed} from 'vue';
 import axios from 'axios';
 
 const username = ref('');
@@ -31,8 +64,28 @@ const password = ref('');
 const loggedIn = ref(false);
 const users = ref([]);
 
+const currentPage = ref(1);
+const entriesPerPage = ref(50);
+
+const paginatedUsers = computed(() => {
+  const start = (currentPage.value - 1) * entriesPerPage.value;
+  const end = start + entriesPerPage.value;
+  return users.value.slice(start, end);
+});
+function nextPage() {
+  if (currentPage.value * entriesPerPage.value < users.value.length) {
+    currentPage.value++;
+  }
+}
+
+function previousPage() {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+}
+
 onMounted(async() => {
-    if(process.env.VUE_APP_USERNAME===sessionStorage.getItem('username') && process.env.VUE_APP_PASSWORD===sessionStorage.getItem('password')){
+    if(process.env.VUE_APP_USERNAME===localStorage.getItem('username') && process.env.VUE_APP_PASSWORD===localStorage.getItem('password')){
         loggedIn.value = true;
         await fetchUsers();
     }
@@ -40,8 +93,8 @@ onMounted(async() => {
 const login = async () => {
     if(process.env.VUE_APP_USERNAME===username.value && process.env.VUE_APP_PASSWORD===password.value){
         loggedIn.value = true;
-        sessionStorage.setItem('username', username.value);
-        sessionStorage.setItem('password', username.value);
+        localStorage.setItem('username', username.value);
+        localStorage.setItem('password', password.value);
         await fetchUsers();
     }else{
         alert("Invalid Credentials");
@@ -105,5 +158,45 @@ label{
 }
 .form-check-input{
     border-color: #00a9a5;
+}
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10%;
+}
+
+.pagination-controls button {
+  padding: 5px 10px;
+  margin: 0 0px;
+  background-color: #00a9a5;
+  color: black;
+  border: none;
+  border-radius: 5px;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc !important;
+}
+.diff-color{
+  background-color: #00a9a5 !important;
+  text-align: left !important;
+}
+.table-responsive{
+  max-width:50vw;
+  min-width: 30vw;
+  min-height: 100%;
+  /* max-height: 60vh; */
+  border-radius: 10px;
+  overflow-y: auto;
+}
+.table > :not(caption) > * > *{
+  /* text-align: center; */
+  /* font-weight: 900;
+  font-size: 1.5rem; */
+  opacity: 0.8;
+  text-transform: uppercase;
+  background-color: #add7d7;
+
 }
 </style>
