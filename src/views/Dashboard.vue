@@ -182,20 +182,12 @@ label{
   background-color: #00a9a5 !important;
   text-align: left !important;
 }
-.table-responsive{
-  max-width:50vw;
-  min-width: 30vw;
-  min-height: 100%;
-  /* max-height: 60vh; */
-  border-radius: 10px;
-  overflow-y: auto;
-}
 .table > :not(caption) > * > *{
   /* text-align: center; */
   /* font-weight: 900;
   font-size: 1.5rem; */
   opacity: 0.8;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   background-color: #add7d7;
 
 }
