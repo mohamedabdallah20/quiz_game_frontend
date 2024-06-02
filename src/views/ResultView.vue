@@ -125,7 +125,7 @@ function retakeQuiz() {
 }
 function toLeaderboard() {
   // Navigate to the quiz page for the same user
-  router.push({ name: 'Dashboard' });
+  router.push({ name: 'Leaderboard' });
 }
 
 function toHisense() {

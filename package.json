@@ -42,7 +42,9 @@
         "error",
         {
           "ignores": [
-            "Home"
+            "Home",
+            "Leaderboard",
+            "Dashboard"
           ]
         }
       ]
