@@ -24,33 +24,36 @@
         <div v-else class="container">
             <div class="row mt-3">
                 <div class="col-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th class="diff-color" scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th class="diff-color" scope="col">Mobile</th>
-                                <th scope="col">City</th>
-                                <th class="diff-color" scope="col">Max Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="user in paginatedUsers" :key="user.user_id">
-                                <th scope="row">{{ user.user_id }}</th>
-                                <td class="diff-color">{{ user.username }}</td>
-                                <td>{{ user.email }}</td>
-                                <td class="diff-color">{{ user.mobile }}</td>
-                                <td>{{ user.city }}</td>
-                                <td class="diff-color">{{ user.max_score }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="pagination-controls">
-                        <button @click="previousPage" :disabled="currentPage === 1">&lt;</button>
-                        <button @click="nextPage" :disabled="currentPage * entriesPerPage >= users.length">&gt;</button>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th class="diff-color" scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th class="diff-color" scope="col">Mobile</th>
+                                    <th scope="col">City</th>
+                                    <th class="diff-color" scope="col">Max Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="user in paginatedUsers" :key="user.user_id">
+                                    <th scope="row">{{ user.index+1 }}</th>
+                                    <td class="diff-color">{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td class="diff-color">{{ user.mobile }}</td>
+                                    <td>{{ user.city }}</td>
+                                    <td class="diff-color">{{ user.max_score }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+            <div class="pagination-controls">
+                <button @click="previousPage" :disabled="currentPage === 1">&lt;</button>
+                <button class="currentPage">{{currentPage}}</button>
+                <button @click="nextPage" :disabled="currentPage * entriesPerPage >= users.length">&gt;</button>
             </div>
         </div>
     </div>
@@ -104,7 +107,7 @@ const fetchUsers = async()=>{
     try {
         const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/users`)
         if(response.data.success){
-            users.value = response.data.users;
+            users.value = response.data.users.map((user,index) => ({...user,index}));
         }else{
             alert("Something went wrong");
         }
@@ -119,9 +122,15 @@ const fetchUsers = async()=>{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  max-height: 100vh;
 }
 .container{
     width: 40vw !important;
+}
+@media screen and (max-width: 768px){
+    .container{
+    width: 100vw !important;
+}   
 }
 button{
     background-color: #00a9a5 !important;
@@ -181,6 +190,25 @@ label{
 .diff-color{
   background-color: #00a9a5 !important;
   text-align: left !important;
+}
+.table-responsive {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+.table-responsive thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+.currentPage{
+    background-color: #00a9a5 !important;
+    color: white !important;
+    border-radius: 5px !important;
+    padding: 5px 10px !important;
+    border: none !important;
+    font-size: 0.8rem !important;
+
 }
 .table > :not(caption) > * > *{
   /* text-align: center; */
