@@ -22,6 +22,11 @@
             </div>
         </div>
         <div v-else class="container">
+            <button class="btn btn-primary">
+                <export-excel :data="users" name="users.xls" :fields="fields" >
+                    Download Data
+                </export-excel>
+            </button>
             <div class="row mt-3">
                 <div class="col-12">
                     <div class="table-responsive">
@@ -38,7 +43,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="user in paginatedUsers" :key="user.user_id">
-                                    <th scope="row">{{ user.index+1 }}</th>
+                                    <th scope="row">{{ user.index }}</th>
                                     <td class="diff-color">{{ user.username }}</td>
                                     <td>{{ user.email }}</td>
                                     <td class="diff-color">{{ user.mobile }}</td>
@@ -61,6 +66,15 @@
 <script setup>
 import {ref,onMounted,computed} from 'vue';
 import axios from 'axios';
+
+const fields = {
+    '#': 'index',
+    name: 'username',
+    Email: 'email',
+    Mobile: 'mobile',
+    City: 'city',
+    'max score': 'max_score'
+}
 
 const username = ref('');
 const password = ref('');
@@ -107,7 +121,7 @@ const fetchUsers = async()=>{
     try {
         const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}/users`)
         if(response.data.success){
-            users.value = response.data.users.map((user,index) => ({...user,index}));
+            users.value = response.data.users.map((user,index) => ({index:index+1,...user,}));
         }else{
             alert("Something went wrong");
         }

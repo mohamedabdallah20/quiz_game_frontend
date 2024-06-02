@@ -3,6 +3,7 @@ import router from './router/index.js'
 import App from './App.vue'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
+import excel from 'vue-excel-export'
 
 import { createI18n } from 'vue-i18n';
 
@@ -19,4 +20,4 @@ const i18n = createI18n({
     }
   });
 
-createApp(App).use(router).use(i18n).mount('#app')
+createApp(App).use(router).use(excel).use(i18n).mount('#app')
