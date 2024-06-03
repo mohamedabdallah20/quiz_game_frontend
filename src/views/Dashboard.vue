@@ -184,7 +184,7 @@ label{
 }
 .pagination-controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-top: 20px;
   gap: 10%;
 }
